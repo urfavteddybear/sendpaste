@@ -35,16 +35,54 @@
                             id="language"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                         >
-                            <option value="text" {{ old('language') === 'text' ? 'selected' : '' }}>Plain Text</option>
-                            <option value="javascript" {{ old('language') === 'javascript' ? 'selected' : '' }}>JavaScript</option>
-                            <option value="python" {{ old('language') === 'python' ? 'selected' : '' }}>Python</option>
-                            <option value="php" {{ old('language') === 'php' ? 'selected' : '' }}>PHP</option>
-                            <option value="html" {{ old('language') === 'html' ? 'selected' : '' }}>HTML</option>
-                            <option value="css" {{ old('language') === 'css' ? 'selected' : '' }}>CSS</option>
-                            <option value="json" {{ old('language') === 'json' ? 'selected' : '' }}>JSON</option>
-                            <option value="xml" {{ old('language') === 'xml' ? 'selected' : '' }}>XML</option>
-                            <option value="sql" {{ old('language') === 'sql' ? 'selected' : '' }}>SQL</option>
-                            <option value="bash" {{ old('language') === 'bash' ? 'selected' : '' }}>Bash</option>
+                            <option value="plaintext" {{ old('language', 'plaintext') === 'plaintext' ? 'selected' : '' }}>Plain Text</option>
+                            <optgroup label="Web Technologies">
+                                <option value="html" {{ old('language') === 'html' ? 'selected' : '' }}>HTML</option>
+                                <option value="css" {{ old('language') === 'css' ? 'selected' : '' }}>CSS</option>
+                                <option value="javascript" {{ old('language') === 'javascript' ? 'selected' : '' }}>JavaScript</option>
+                                <option value="typescript" {{ old('language') === 'typescript' ? 'selected' : '' }}>TypeScript</option>
+                                <option value="vue" {{ old('language') === 'vue' ? 'selected' : '' }}>Vue</option>
+                                <option value="react" {{ old('language') === 'react' ? 'selected' : '' }}>React (JSX)</option>
+                            </optgroup>
+                            <optgroup label="Programming Languages">
+                                <option value="python" {{ old('language') === 'python' ? 'selected' : '' }}>Python</option>
+                                <option value="java" {{ old('language') === 'java' ? 'selected' : '' }}>Java</option>
+                                <option value="csharp" {{ old('language') === 'csharp' ? 'selected' : '' }}>C#</option>
+                                <option value="cpp" {{ old('language') === 'cpp' ? 'selected' : '' }}>C++</option>
+                                <option value="c" {{ old('language') === 'c' ? 'selected' : '' }}>C</option>
+                                <option value="php" {{ old('language') === 'php' ? 'selected' : '' }}>PHP</option>
+                                <option value="ruby" {{ old('language') === 'ruby' ? 'selected' : '' }}>Ruby</option>
+                                <option value="go" {{ old('language') === 'go' ? 'selected' : '' }}>Go</option>
+                                <option value="rust" {{ old('language') === 'rust' ? 'selected' : '' }}>Rust</option>
+                                <option value="swift" {{ old('language') === 'swift' ? 'selected' : '' }}>Swift</option>
+                                <option value="kotlin" {{ old('language') === 'kotlin' ? 'selected' : '' }}>Kotlin</option>
+                                <option value="scala" {{ old('language') === 'scala' ? 'selected' : '' }}>Scala</option>
+                            </optgroup>
+                            <optgroup label="Data & Config">
+                                <option value="json" {{ old('language') === 'json' ? 'selected' : '' }}>JSON</option>
+                                <option value="xml" {{ old('language') === 'xml' ? 'selected' : '' }}>XML</option>
+                                <option value="yaml" {{ old('language') === 'yaml' ? 'selected' : '' }}>YAML</option>
+                                <option value="toml" {{ old('language') === 'toml' ? 'selected' : '' }}>TOML</option>
+                                <option value="ini" {{ old('language') === 'ini' ? 'selected' : '' }}>INI</option>
+                                <option value="csv" {{ old('language') === 'csv' ? 'selected' : '' }}>CSV</option>
+                            </optgroup>
+                            <optgroup label="Database & Query">
+                                <option value="sql" {{ old('language') === 'sql' ? 'selected' : '' }}>SQL</option>
+                                <option value="mysql" {{ old('language') === 'mysql' ? 'selected' : '' }}>MySQL</option>
+                                <option value="postgresql" {{ old('language') === 'postgresql' ? 'selected' : '' }}>PostgreSQL</option>
+                                <option value="mongodb" {{ old('language') === 'mongodb' ? 'selected' : '' }}>MongoDB</option>
+                            </optgroup>
+                            <optgroup label="Shell & Scripts">
+                                <option value="bash" {{ old('language') === 'bash' ? 'selected' : '' }}>Bash</option>
+                                <option value="shell" {{ old('language') === 'shell' ? 'selected' : '' }}>Shell</option>
+                                <option value="powershell" {{ old('language') === 'powershell' ? 'selected' : '' }}>PowerShell</option>
+                                <option value="batch" {{ old('language') === 'batch' ? 'selected' : '' }}>Batch</option>
+                            </optgroup>
+                            <optgroup label="Markup & Documentation">
+                                <option value="markdown" {{ old('language') === 'markdown' ? 'selected' : '' }}>Markdown</option>
+                                <option value="latex" {{ old('language') === 'latex' ? 'selected' : '' }}>LaTeX</option>
+                                <option value="dockerfile" {{ old('language') === 'dockerfile' ? 'selected' : '' }}>Dockerfile</option>
+                            </optgroup>
                         </select>
                     </div>
                     
@@ -149,7 +187,7 @@ function clearForm() {
         document.getElementById('content').value = '';
         document.getElementById('title').value = '';
         document.getElementById('password').value = '';
-        document.getElementById('language').value = 'text';
+        document.getElementById('language').value = 'plaintext';
         document.getElementById('expiration').value = '1week';
     }
 }

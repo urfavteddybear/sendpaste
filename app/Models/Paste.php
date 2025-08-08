@@ -30,6 +30,7 @@ class Paste extends Model
 
     protected $appends = [
         'url',
+        'formatted_language',
     ];
 
     /**
@@ -143,5 +144,43 @@ class Paste extends Model
     public function getUrlAttribute(): string
     {
         return url('/' . $this->slug);
+    }
+
+    /**
+     * Get formatted language name for display
+     */
+    public function getFormattedLanguageAttribute(): string
+    {
+        $languageMap = [
+            'plaintext' => 'Plain Text',
+            'text' => 'Plain Text',
+            'javascript' => 'JavaScript',
+            'typescript' => 'TypeScript',
+            'csharp' => 'C#',
+            'cpp' => 'C++',
+            'dockerfile' => 'Dockerfile',
+            'powershell' => 'PowerShell',
+            'postgresql' => 'PostgreSQL',
+            'mongodb' => 'MongoDB',
+            'mysql' => 'MySQL',
+            'html' => 'HTML',
+            'css' => 'CSS',
+            'json' => 'JSON',
+            'xml' => 'XML',
+            'yaml' => 'YAML',
+            'toml' => 'TOML',
+            'ini' => 'INI',
+            'csv' => 'CSV',
+            'sql' => 'SQL',
+            'bash' => 'Bash',
+            'shell' => 'Shell',
+            'batch' => 'Batch',
+            'markdown' => 'Markdown',
+            'latex' => 'LaTeX',
+            'vue' => 'Vue',
+            'react' => 'React (JSX)',
+        ];
+
+        return $languageMap[$this->language] ?? ucfirst($this->language ?? 'plaintext');
     }
 }
