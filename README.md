@@ -1,11 +1,188 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SendPaste - Secure Text Sharing
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+SendPaste is a minimalist, secure pastebin application built with Laravel and Tailwind CSS. It features end-to-end encryption, automatic expiration, and a clean, user-friendly interface.
+
+## 🔒 Security Features
+
+- **End-to-End Encryption**: All content is encrypted in the database using Laravel's built-in encryption
+- **Database Admin Protection**: Database administrators cannot read paste content
+- **Automatic Expiration**: Pastes automatically expire based on user-defined timeframes
+- **Password Protection**: Optional password protection for additional security
+- **No Logging**: No access logs are kept to maintain privacy
+- **Random URLs**: Each paste gets a unique 6-character random slug
+
+## ✨ Features
+
+- **Clean Minimalist Design**: Built with Tailwind CSS for a beautiful, responsive interface
+- **Multiple Expiration Options**: 1 week, 1 month, 3 months, 6 months, 1 year, or never
+- **Syntax Highlighting Support**: Pre-configured for multiple programming languages
+- **View Counter**: Track how many times a paste has been accessed
+- **Raw Text Access**: Direct access to plain text content via `/slug/raw`
+- **Copy to Clipboard**: Easy copy functionality for both links and content
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+
+## 🚀 Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url> sendpaste
+cd sendpaste
+```
+
+2. Install PHP dependencies:
+```bash
+composer install
+```
+
+3. Install Node.js dependencies:
+```bash
+npm install
+```
+
+4. Copy environment file and configure:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Configure your database in `.env`:
+```env
+DB_CONNECTION=mariadb
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sendpaste
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+6. Run migrations:
+```bash
+php artisan migrate
+```
+
+7. Build assets and start the server:
+```bash
+npm run build
+php artisan serve
+```
+
+## 🔧 Configuration
+
+### Automatic Cleanup
+
+The application includes automatic cleanup of expired pastes. To enable this:
+
+1. Set up your server's cron to run Laravel's scheduler:
+```bash
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+2. Or run cleanup manually:
+```bash
+# Dry run to see what would be deleted
+php artisan pastes:cleanup --dry-run
+
+# Actually delete expired pastes
+php artisan pastes:cleanup
+```
+
+### Customization
+
+- **Maximum paste size**: Edit the validation rules in `PasteController.php` (default: 500KB)
+- **Slug length**: Modify the `generateUniqueSlug()` method in `Paste.php` (default: 6 characters)
+- **Rate limiting**: Adjust limits in the controller methods
+
+## 📡 API
+
+SendPaste includes a simple REST API for programmatic access:
+
+### Create a paste
+
+```bash
+POST /api/paste
+Content-Type: application/json
+
+{
+    "content": "Your text here",
+    "title": "Optional title",
+    "language": "text",
+    "expiration": "1week"
+}
+```
+
+### Response
+
+```json
+{
+    "slug": "abc123",
+    "url": "https://yoursite.com/abc123",
+    "expires_at": "2024-01-15T10:30:00.000000Z"
+}
+```
+
+### Get raw content
+
+```bash
+GET /slug/raw
+```
+
+### Expiration Options
+
+- `1week` - 1 week
+- `1month` - 1 month  
+- `3months` - 3 months
+- `6months` - 6 months
+- `1year` - 1 year
+- `never` - Never expires
+
+## 🛡️ Security Considerations
+
+1. **HTTPS**: Always use HTTPS in production to protect data in transit
+2. **App Key**: Ensure `APP_KEY` is properly set and kept secret
+3. **Database Access**: Limit database access to essential personnel only
+4. **Regular Updates**: Keep Laravel and dependencies updated
+5. **Rate Limiting**: The application includes built-in rate limiting to prevent abuse
+
+## 🗂️ File Structure
+
+```
+app/
+├── Http/Controllers/
+│   └── PasteController.php      # Main application logic
+├── Models/
+│   └── Paste.php                # Paste model with encryption
+└── Console/Commands/
+    └── CleanupExpiredPastes.php # Cleanup command
+
+resources/views/
+├── layouts/
+│   └── app.blade.php            # Main layout
+└── paste/
+    ├── create.blade.php         # Paste creation form
+    ├── show.blade.php           # Paste display
+    └── password.blade.php       # Password protection
+
+database/migrations/
+└── create_pastes_table.php      # Database schema
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📝 License
+
+This project is open-sourced software licensed under the MIT license.
+
+## 🙏 Acknowledgments
+
+- Built with [Laravel](https://laravel.com/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- Inspired by privacy-focused pastebin services
 
 ## About Laravel
 
